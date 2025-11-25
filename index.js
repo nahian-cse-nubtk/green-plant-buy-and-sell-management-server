@@ -28,14 +28,18 @@ async function run() {
     const plantCollection = db.collection('plants')
 
     app.get('/products', async(req,res)=>{
+        const email = req.query.email;
         const query ={}
+        if(email){
+            query.sellerEmail = email;
+        }
         const cursor = plantCollection.find(query)
         const result = await cursor.toArray()
         res.send(result);
     })
     app.get('/products/:id',async(req,res)=>{
         const id = req.params.id;
-        
+
         const query = {_id: new ObjectId(id)}
         const result = await plantCollection.findOne(query)
         res.send(result);
@@ -45,7 +49,12 @@ async function run() {
         const result = await plantCollection.insertOne(productData)
         res.send(result);
     })
-
+    app.delete('/products/:id',async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)}
+        const result = await plantCollection.deleteOne(query);
+        res.send(result);
+    })
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
