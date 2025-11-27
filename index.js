@@ -44,8 +44,15 @@ async function run() {
         const result = await plantCollection.findOne(query)
         res.send(result);
     })
+    app.get('/latestProducts', async(req,res)=>{
+        const query ={}
+        const cursor = plantCollection.find(query).sort({createdAt: -1}).limit(6)
+        const result = await cursor.toArray();
+        res.send(result)
+    })
     app.post('/products',async(req,res)=>{
         const productData = req.body;
+        productData.createdAt = new Date();
         const result = await plantCollection.insertOne(productData)
         res.send(result);
     })
