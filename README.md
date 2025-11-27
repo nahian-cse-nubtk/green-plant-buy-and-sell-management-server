@@ -35,7 +35,7 @@ Follow these steps to run the backend server locally:
 
 1️⃣ Clone the repository
 git clone https://github.com/nahian-cse-nubtk/green-plant-buy-and-sell-management-server.git
-cd green-world-backend
+
 
 2️⃣ Install dependencies
 npm install
@@ -66,24 +66,53 @@ Pinged your deployment. You successfully connected to MongoDB!
 Base URL
 http://localhost:4000
 
-### 📘 Product Routes
-Method	Endpoint	Description
-GET	/products	Get all products OR filter by seller email (?email=)
-GET	/products/:id	Get a single product by its ID
-GET	/latestProducts	Get last 6 added products (sorted by createdAt)
-POST	/products	Add a new product (auto-adds createdAt timestamp)
-DELETE	/products/:id	Delete a product by ID
-🔍 Query Filtering
-Get products by seller email:
-GET /products?email=seller@example.com
+🌿 Product Routes
+1. Get all products
+GET /products
 
-🧪 Example Product Object
+
+Query params:
+
+email (optional) → filter products by seller email
+
+Examples:
+
+All: /products
+
+Seller products: /products?email=john@gmail.com
+
+2. Get single product by ID
+GET /products/:id
+
+
+Returns one product document.
+
+3. Get latest 6 products
+GET /latestProducts
+
+
+Sorted by createdAt (newest first), limit 6.
+
+4. Add new product
+POST /products
+
+
+Body example:
+
 {
-  "title": "Golden Money Plant",
-  "shortDescription": "Low maintenance indoor plant",
-  "description": "Perfect for indoor decoration and air purification.",
+  "title": "Money Plant",
   "price": 350,
-  "image": "https://example.com/plant.jpg",
-  "sellerEmail": "test@gmail.com",
-  "createdAt": "2025-01-20T10:00:00.000Z"
+  "sellerEmail": "demo@mail.com",
+  "image": "https://example.com/image.jpg",
+  "description": "Air purifying indoor plant."
 }
+
+
+Server automatically adds:
+
+"createdAt": "2025-02-17T09:30:22.123Z"
+
+5. Delete a product
+DELETE /products/:id
+
+
