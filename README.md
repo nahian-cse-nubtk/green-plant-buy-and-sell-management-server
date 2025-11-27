@@ -35,7 +35,7 @@ Follow these steps to run the backend server locally:
 
 1️⃣ Clone the repository
 git clone https://github.com/nahian-cse-nubtk/green-plant-buy-and-sell-management-server.git
-cd green-world-backend
+
 
 2️⃣ Install dependencies
 npm install
